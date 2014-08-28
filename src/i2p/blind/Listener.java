@@ -1,5 +1,8 @@
 package i2p.blind;
 
+
+import static i2p.blind.Blind.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,14 +17,9 @@ import net.i2p.client.streaming.I2PSocketManagerFactory;
 import net.i2p.util.I2PThread;
 
 public class Listener {
-    //public static String myDestination;
-    //public static I2PSocketManager manager;
-    //public static void main(String args[]){}
+
     public void initialize(){
-       I2PServerSocket serverSocket = Initializer.manager.getServerSocket();
-       I2PThread t = new I2PThread(new ClientHandler(serverSocket));
-        t.setName("clienthandler1");
-        t.setDaemon(false);
+       I2PThread t = new I2PThread(new ClientHandler(serverSocket), "clienthandler1", false);
         t.start();
 
     }   
@@ -29,6 +27,7 @@ public class Listener {
         I2PSocket sock;
         public ClientHandler(I2PServerSocket socket) {
             this.socket = socket;
+            
         }
 
         @Override

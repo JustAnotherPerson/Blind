@@ -1,5 +1,7 @@
 package i2p.blind;
 
+import static i2p.blind.Blind.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -9,29 +11,57 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ConnectException;
 import java.net.NoRouteToHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.i2p.I2PException;
 import net.i2p.client.streaming.I2PSocket;
 import net.i2p.data.DataFormatException;
 import net.i2p.data.Destination;
+import net.i2p.util.I2PThread;
 
 public class Speaker {
     
-    public static Destination destination;
-    public static BufferedReader br;
-    public static BufferedWriter bw;
+    private static BufferedReader br;
+    private static BufferedWriter bw;
+
+    public void create(){
+        
+        I2PThread t = new I2PThread(new Tongue(), "tongue1", false);
+        t.start();
+    }
+    private static class Tongue implements Runnable{
+        @Override
+        public void run(){
+            
+        }
+    }
+    
+    private void connect(){
+        
+        
+        
+        
+    }
+    
+    private Destination catchDestination(){
+        System.out.println("Enter a destination of your recipient: ");
+        try {
+            try {
+                destination = new Destination(br.readLine());
+            } catch (DataFormatException ex) {
+                Logger.getLogger(Speaker.class.getName()).log(Level.SEVERE, "Error. Isn't a destination!", ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Speaker.class.getName()).log(Level.SEVERE, "Error. There isn't a input from keyboard.", ex);
+        }
+        return destination;
+    }
+    
     
     public static void main(String[] args) {
         //System.out.println("Please enter a Destination:");
        // br = new BufferedReader(new InputStreamReader(System.in));
-        String destinationString;
-        try {
-            destinationString = br.readLine();
-        } catch (IOException ex) {
-            System.out.println("Failed to get a Destination string.");
-            return;
-        }
         
-        UserInterface.askDestination();
             
         I2PSocket socket;
         try {

@@ -14,39 +14,23 @@ public class UserInterface {
         System.out.println("Ваш Destination (передайте его собеседнику):");
         System.out.println(Initializer.myDestination);
     }
-    public static Destination askDestination(){
-        System.out.println("Введите Destination собеседника:");
-        Speaker.br = new BufferedReader(new InputStreamReader(System.in));
-        String destinationString = null;
-        try {
-            destinationString = Speaker.br.readLine();
-        } catch (IOException ex) {
-            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Destination destination = null;
-        try {
-            destination = new Destination(destinationString);
-        } catch (DataFormatException ex) {
-            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return destination;
-    }
+    
     public static void recievedMessages(String line){
         System.out.print("[Собеседник]: ");
         System.out.println(line);
     }
-    public void sendMessage(){
-        while(true){
-            try {
-                Speaker.br.readLine();
+    public void sendMessage() throws IOException{
+        Speaker.br.readLine();
+           if(Speaker.br != null){
+                
+            }
+                
                 //Speaker.bw.flush();
                 if(Speaker.br != null){ 
                     System.out.print("[Вы]: " + Speaker.bw);
                    // Speaker.br.reset();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                
+            
         }
     }
 }
